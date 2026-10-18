@@ -320,6 +320,27 @@ export class EngineConfig extends Config {
     );
   }
 
+  /** Gold earned by each end of a completed passenger flight. */
+  planeGold(dist: number, player: PlayerLike): Gold {
+    const baseGold = 30_000 + 100 * dist;
+    return BigInt(Math.floor(baseGold * this.goldMultiplierFor(player)));
+  }
+
+  /** Tiles a plane covers per tick. */
+  planeSpeed(): number {
+    return 2;
+  }
+
+  /** Passenger flights in the air at once, per airport level. */
+  maxPlanesPerAirportLevel(): number {
+    return 2;
+  }
+
+  /** Each airport level launches a flight with chance 1/this per 10-tick check. */
+  planeSpawnOdds(): number {
+    return 15;
+  }
+
   private hasInfiniteGoldFor(player: PlayerLike): boolean {
     if (this.infiniteGold()) return true;
     const hc = this._gameConfig.hostCheats;
@@ -348,6 +369,11 @@ export class EngineConfig extends Config {
           (numUnits: number) => Math.min(1_000_000, pow2(numUnits) * 125_000),
           UnitType.Port,
           UnitType.Factory,
+        );
+      case UnitType.Airport:
+        return this.costWrapper(
+          (numUnits: number) => Math.min(2_000_000, pow2(numUnits) * 250_000),
+          UnitType.Airport,
         );
       case UnitType.AtomBomb:
         return this.costWrapper(() => 750_000, UnitType.AtomBomb);
@@ -391,6 +417,7 @@ export class EngineConfig extends Config {
       case UnitType.SAMMissile:
       case UnitType.MIRVWarhead:
       case UnitType.TradeShip:
+      case UnitType.Plane:
       case UnitType.Train:
         return () => 0n;
       default:

@@ -188,6 +188,7 @@
   },
   "build_menu": {
     "desc": {
+      "airport": "Launches passenger flights to other players' airports for gold",
       "atom_bomb": "Small explosion",
       "city": "Increases max population",
       "defense_post": "Increases defenses of nearby borders",
@@ -2496,6 +2497,7 @@
     "title": "Tutorial"
   },
   "unit_type": {
+    "airport": "Airport",
     "atom_bomb": "Atom Bomb",
     "boat": "Boat",
     "city": "City",

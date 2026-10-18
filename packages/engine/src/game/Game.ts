@@ -71,6 +71,12 @@ export interface UnitParamsMap {
 
   [UnitType.Port]: Record<string, never>;
 
+  [UnitType.Airport]: Record<string, never>;
+
+  [UnitType.Plane]: {
+    targetUnit: Unit;
+  };
+
   [UnitType.AtomBomb]: {
     targetTile?: number;
     trajectory: TrajectoryTile[];

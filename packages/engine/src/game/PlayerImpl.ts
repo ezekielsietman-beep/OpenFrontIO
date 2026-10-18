@@ -1617,7 +1617,9 @@ export class PlayerImpl implements Player {
       case UnitType.TradeShip:
         return this.tradeShipSpawn(targetTile);
       case UnitType.Train:
+      case UnitType.Plane:
         return this.landBasedUnitSpawn(targetTile);
+      case UnitType.Airport:
       case UnitType.MissileSilo:
       case UnitType.DefensePost:
       case UnitType.SAMLauncher:

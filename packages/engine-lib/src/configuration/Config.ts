@@ -223,6 +223,12 @@ export class Config {
           upgradable: true,
         };
         break;
+      case UnitType.Airport:
+        info = {
+          constructionDuration: this.instantBuild() ? 0 : 8 * 10,
+          upgradable: true,
+        };
+        break;
       case UnitType.MissileSilo:
         info = {
           constructionDuration: this.instantBuild() ? 0 : 10 * 10,
@@ -254,6 +260,7 @@ export class Config {
       case UnitType.MIRV:
       case UnitType.MIRVWarhead:
       case UnitType.TradeShip:
+      case UnitType.Plane:
       case UnitType.Train:
         info = {};
         break;

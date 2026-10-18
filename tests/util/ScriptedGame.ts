@@ -274,6 +274,7 @@ const STRUCTURES = [
   UnitType.DefensePost,
   UnitType.SAMLauncher,
   UnitType.MissileSilo,
+  UnitType.Airport,
 ] as const;
 
 function playIntent(game: Game, p: Player, rand: PseudoRandom): Intent | null {
