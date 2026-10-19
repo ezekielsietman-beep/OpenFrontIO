@@ -32,6 +32,7 @@ import type {
   SnapshotReader,
   SnapshotWriter,
 } from "../snapshot/SnapshotContext";
+import { NationAirBehavior } from "./nation/NationAirBehavior";
 import { NationAllianceBehavior } from "./nation/NationAllianceBehavior";
 import { NationEmojiBehavior } from "./nation/NationEmojiBehavior";
 import { NationMIRVBehavior } from "./nation/NationMIRVBehavior";
@@ -53,6 +54,7 @@ export class NationExecution implements Execution {
   private warshipBehavior!: NationWarshipBehavior;
   private nukeBehavior!: NationNukeBehavior;
   private structureBehavior!: NationStructureBehavior;
+  private airBehavior!: NationAirBehavior;
   private mg: Game;
   private player: Player | null = null;
 
@@ -227,6 +229,7 @@ export class NationExecution implements Execution {
     this.attackBehavior.maybeAttack();
     this.warshipBehavior.counterWarshipInfestation();
     this.nukeBehavior.maybeSendNuke();
+    this.airBehavior.handleAir();
   }
 
   private initializeBehaviors(): void {
@@ -278,6 +281,7 @@ export class NationExecution implements Execution {
       this.mg,
       this.player,
     );
+    this.airBehavior = new NationAirBehavior(this.random, this.mg, this.player);
     this.behaviorsInitialized = true;
   }
 
@@ -483,6 +487,8 @@ export class NationExecution implements Execution {
     this.attackBehavior = attack;
     this.nukeBehavior = nuke;
     this.structureBehavior = structure;
+    // Stateless, so nothing to restore: it just rebuilds.
+    this.airBehavior = new NationAirBehavior(random, r.game, player);
   }
 }
 
