@@ -21,6 +21,7 @@ import { MirvExecution } from "./MIRVExecution";
 import { MissileSiloExecution } from "./MissileSiloExecution";
 import { NukeExecution } from "./NukeExecution";
 import { AirportExecution } from "./AirportExecution";
+import { AirTransportExecution } from "./AirTransportExecution";
 import { BomberExecution } from "./BomberExecution";
 import { FighterExecution } from "./FighterExecution";
 import { PortExecution } from "./PortExecution";
@@ -144,6 +145,9 @@ export class ConstructionExecution implements Execution {
         break;
       case UnitType.Fighter:
         this.mg.addExecution(new FighterExecution(player, this.tile));
+        break;
+      case UnitType.AirTransport:
+        this.mg.addExecution(new AirTransportExecution(player, this.tile));
         break;
       case UnitType.Bomber:
         this.mg.addExecution(

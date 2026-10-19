@@ -83,6 +83,11 @@ export interface UnitParamsMap {
 
   [UnitType.Fighter]: Record<string, never>;
 
+  [UnitType.AirTransport]: {
+    troops: number;
+    targetTile: TileRef;
+  };
+
   [UnitType.AtomBomb]: {
     targetTile?: number;
     trajectory: TrajectoryTile[];

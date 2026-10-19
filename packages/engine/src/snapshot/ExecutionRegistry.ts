@@ -25,6 +25,7 @@ import { NoOpExecutionSnapshot } from "../execution/NoOpExecution";
 import { NukeExecutionSnapshot } from "../execution/NukeExecution";
 import { PauseExecutionSnapshot } from "../execution/PauseExecution";
 import { PlayerExecutionSnapshot } from "../execution/PlayerExecution";
+import { AirTransportExecutionSnapshot } from "../execution/AirTransportExecution";
 import { FighterExecutionSnapshot } from "../execution/FighterExecution";
 import { BomberExecutionSnapshot } from "../execution/BomberExecution";
 import { AirportExecutionSnapshot } from "../execution/AirportExecution";
@@ -88,6 +89,7 @@ export const EXECUTION_SNAPSHOT_TYPES = [
   PlaneExecutionSnapshot,
   BomberExecutionSnapshot,
   FighterExecutionSnapshot,
+  AirTransportExecutionSnapshot,
   QuickChatExecutionSnapshot,
   RecomputeRailClusterExecutionSnapshot,
   RetreatExecutionSnapshot,

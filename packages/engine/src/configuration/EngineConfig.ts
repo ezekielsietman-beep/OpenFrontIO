@@ -356,6 +356,16 @@ export class EngineConfig extends Config {
     return 0.015;
   }
 
+  /** Tiles an air transport covers per tick. */
+  airTransportSpeed(): number {
+    return 3;
+  }
+
+  /** Air transports a player may have in the air, per airport level. */
+  maxAirTransportsPerAirportLevel(): number {
+    return 2;
+  }
+
   /** Tiles a fighter covers per tick (faster than a bomber). */
   fighterSpeed(): number {
     return 4;
@@ -424,6 +434,8 @@ export class EngineConfig extends Config {
         return this.costWrapper(() => 150_000, UnitType.Bomber);
       case UnitType.Fighter:
         return this.costWrapper(() => 400_000, UnitType.Fighter);
+      case UnitType.AirTransport:
+        return this.costWrapper(() => 100_000, UnitType.AirTransport);
       case UnitType.Airport:
         return this.costWrapper(
           (numUnits: number) => Math.min(2_000_000, pow2(numUnits) * 250_000),

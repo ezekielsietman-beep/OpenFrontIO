@@ -188,6 +188,7 @@
   },
   "build_menu": {
     "desc": {
+      "air_transport": "Click any land tile that is not yours: an air transport flies troops there from your nearest airport, over any terrain, and lands them to attack or claim it. Enemy fighters can shoot it down",
       "airport": "Launches passenger flights to other players' airports for gold",
       "bomber": "Click an enemy tile to send a squadron of up to 4 bombers (150K each). Each enemy structure near the target is destroyed with a chance that rises with the number of bombers that arrive. Only enemy fighters can shoot bombers down",
       "fighter": "Based at your nearest airport. Scrambles against enemy bombers in range, chases and shoots them down, then returns. The only defense against bombers",
@@ -876,6 +877,8 @@
     "bomber_bombed": "{name}'s bombers bombed your territory",
     "fighter_shot_down_bomber": "Your fighter shot down one of {name}'s bombers",
     "bomber_raid_destroyed": "Your bombers destroyed {count} enemy structure(s)",
+    "air_transport_intercepted": "{name}'s fighter shot down your air transport and its troops",
+    "fighter_shot_down_air_transport": "Your fighter shot down one of {name}'s air transports",
     "bomber_intercepted": "{name}'s fighter shot down one of your bombers",
     "atom_bomb_inbound": "{name} - atom bomb inbound",
     "attack_cancelled_retreat": "Attack cancelled, {troops} soldiers killed during retreat",
@@ -892,6 +895,7 @@
     "ignore": "Ignore",
     "mirv_inbound": "⚠️⚠️⚠️ {name} - MIRV INBOUND ⚠️⚠️⚠️",
     "missile_intercepted": "SAM intercepted {unit}",
+    "air_invasion_inbound": "Air invasion incoming from {name} ({troops})",
     "naval_invasion_inbound": "Naval invasion incoming from {name} ({troops})",
     "no_boats_available": "No boats available, max {max}",
     "received_gold_from_captured_ship": "Received {gold} gold from ship captured from {name}",
@@ -2503,6 +2507,7 @@
     "title": "Tutorial"
   },
   "unit_type": {
+    "air_transport": "Air Transport",
     "airport": "Airport",
     "atom_bomb": "Atom Bomb",
     "bomber": "Bomber",
@@ -2573,8 +2578,14 @@
     "build_controls": "Build Controls",
     "build_defense_post": "Build Defense Post",
     "build_defense_post_desc": "Build a Defense Post under your cursor.",
+    "build_air_transport": "Send Air Transport",
+    "build_air_transport_desc": "Send an air transport carrying troops to the tile under your cursor.",
     "build_airport": "Build Airport",
     "build_airport_desc": "Build an Airport under your cursor.",
+    "build_bomber": "Send Bombers",
+    "build_bomber_desc": "Send a bomber squadron at the enemy tile under your cursor.",
+    "build_fighter": "Build Fighter",
+    "build_fighter_desc": "Station a fighter at the airport nearest your cursor.",
     "build_factory": "Build Factory",
     "build_factory_desc": "Build a Factory under your cursor.",
     "build_hydrogen_bomb": "Build Hydrogen Bomb",

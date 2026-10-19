@@ -1613,6 +1613,8 @@ export class PlayerImpl implements Player {
         return this.bomberSpawn(targetTile);
       case UnitType.Fighter:
         return this.fighterSpawn(targetTile);
+      case UnitType.AirTransport:
+        return this.airTransportSpawn(targetTile);
       case UnitType.Shell:
       case UnitType.SAMMissile:
         return targetTile;
@@ -1724,6 +1726,30 @@ export class PlayerImpl implements Player {
       this.units(UnitType.Airport),
       (a) => mg.manhattanDist(a.tile(), target),
       (a) => a.isActive() && !a.isUnderConstruction(),
+    );
+    return airport === null ? false : airport.tile();
+  }
+
+  /**
+   * An air transport lands troops on any land tile that is not already ours,
+   * flying from the finished airport nearest to it.
+   */
+  airTransportSpawn(target: TileRef): TileRef | false {
+    const mg = this.mg;
+    if (mg.isSpawnImmunityActive() || !mg.isValidRef(target)) return false;
+    if (!mg.isLand(target) || mg.isImpassable(target)) return false;
+    const owner = mg.owner(target);
+    if (owner === this) return false;
+    if (owner.isPlayer() && !this.canAttackPlayer(owner as Player))
+      return false;
+    const airports = this.units(UnitType.Airport).filter(
+      (a) => a.isActive() && !a.isUnderConstruction(),
+    );
+    const levels = airports.reduce((sum, a) => sum + a.level(), 0);
+    const cap = mg.config().maxAirTransportsPerAirportLevel() * levels;
+    if (this.units(UnitType.AirTransport).length >= cap) return false;
+    const airport = findClosestBy(airports, (a) =>
+      mg.manhattanDist(a.tile(), target),
     );
     return airport === null ? false : airport.tile();
   }

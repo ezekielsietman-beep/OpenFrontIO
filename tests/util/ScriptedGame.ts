@@ -349,6 +349,13 @@ function playIntent(game: Game, p: Player, rand: PseudoRandom): Intent | null {
           return { type: "build_unit", unit: UnitType.Fighter, tile: base };
         }
       }
+      // ...sometimes drop troops from the air...
+      if (other !== null && airports.length > 0 && rand.chance(4)) {
+        const dst = randomOwnedTile(rand, other);
+        if (dst !== null && p.canBuild(UnitType.AirTransport, dst) !== false) {
+          return { type: "build_unit", unit: UnitType.AirTransport, tile: dst };
+        }
+      }
       // ...and send bombers half the time.
       if (
         other !== null &&

@@ -24,6 +24,7 @@ export const UT_TRAIN = "Train" as const;
 export const UT_PLANE = "Plane" as const;
 export const UT_BOMBER = "Bomber" as const;
 export const UT_FIGHTER = "Fighter" as const;
+export const UT_AIR_TRANSPORT = "Air Transport" as const;
 
 // Structures
 export const UT_CITY = "City" as const;
@@ -67,6 +68,7 @@ export const SMOOTHED_NUKE_TYPES: ReadonlySet<string> = new Set([
 /** Units that leave a trail on the map (TrailManager). */
 export const TRAIL_TYPES: ReadonlySet<string> = new Set([
   UT_TRANSPORT,
+  UT_AIR_TRANSPORT,
   UT_ATOM_BOMB,
   UT_HYDROGEN_BOMB,
   UT_MIRV,
@@ -107,5 +109,6 @@ export const ALL_UNIT_TYPES = [
   UT_PLANE,
   UT_BOMBER,
   UT_FIGHTER,
+  UT_AIR_TRANSPORT,
   UT_AIRPORT,
 ] as const;

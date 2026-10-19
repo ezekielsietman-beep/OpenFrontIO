@@ -18,10 +18,10 @@ import type {
 } from "../snapshot/SnapshotContext";
 
 /**
- * A fighter based at an airport. It sits parked until an enemy bomber comes
- * within scramble range, chases it at higher speed than a bomber flies, shoots
- * it down when close, then returns and parks. It is the only thing that can
- * stop a bomber. If the owner loses every airport the fighter is lost.
+ * A fighter based at an airport. It sits parked until an enemy bomber or air
+ * transport comes within scramble range, chases it at higher speed than they
+ * fly, shoots it down when close, then returns and parks. It is the only
+ * thing that can stop a bomber. If the owner loses every airport the fighter is lost.
  */
 export class FighterExecution implements Execution {
   private active = true;
@@ -109,7 +109,7 @@ export class FighterExecution implements Execution {
     const here = this.fighter!.tile();
     return (
       findClosestBy(
-        mg.units(UnitType.Bomber),
+        mg.units(UnitType.Bomber, UnitType.AirTransport),
         (b) => mg.euclideanDistSquared(here, b.tile()),
         (b) => hostile(b) && inReach(b, range),
       ) ?? undefined
@@ -124,8 +124,11 @@ export class FighterExecution implements Execution {
     if (mg.euclideanDistSquared(here, target.tile()) <= killRange * killRange) {
       if (this.random.chance(config.fighterKillOdds())) {
         const victim = target.owner();
+        const isTransport = target.type() === UnitType.AirTransport;
         mg.displayMessage(
-          "events_display.bomber_intercepted",
+          isTransport
+            ? "events_display.air_transport_intercepted"
+            : "events_display.bomber_intercepted",
           MessageType.UNIT_DESTROYED,
           victim.id(),
           undefined,
@@ -134,7 +137,9 @@ export class FighterExecution implements Execution {
           this.owner.id(),
         );
         mg.displayMessage(
-          "events_display.fighter_shot_down_bomber",
+          isTransport
+            ? "events_display.fighter_shot_down_air_transport"
+            : "events_display.fighter_shot_down_bomber",
           MessageType.CAPTURED_ENEMY_UNIT,
           this.owner.id(),
           undefined,

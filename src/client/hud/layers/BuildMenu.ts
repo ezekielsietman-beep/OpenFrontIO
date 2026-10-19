@@ -32,6 +32,7 @@ const factoryIcon = assetUrl("images/FactoryIconWhite.svg");
 const airportIcon = assetUrl("images/AirportIconWhite.svg");
 const bomberIcon = assetUrl("images/BomberIconWhite.svg");
 const fighterIcon = assetUrl("images/FighterIconWhite.svg");
+const airTransportIcon = assetUrl("images/AirTransportIconWhite.svg");
 const goldCoinIcon = assetUrl("images/GoldCoinIcon.svg");
 const mirvIcon = assetUrl("images/MIRVIcon.svg");
 const missileSiloIcon = assetUrl("images/MissileSiloIconWhite.svg");
@@ -141,6 +142,13 @@ export const buildTable: BuildItemDisplay[][] = [
       description: "build_menu.desc.fighter",
       key: "unit_type.fighter",
       countable: true,
+    },
+    {
+      unitType: UnitType.AirTransport,
+      icon: airTransportIcon,
+      description: "build_menu.desc.air_transport",
+      key: "unit_type.air_transport",
+      countable: false,
     },
   ],
 ];

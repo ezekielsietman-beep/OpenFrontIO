@@ -20,6 +20,9 @@ import {
   cityIcon,
   defensePostIcon,
   airportIcon,
+  airTransportIcon,
+  bomberIcon,
+  fighterIcon,
   factoryIcon,
   goldCoinIcon,
   hydrogenBombIcon,
@@ -42,6 +45,7 @@ export class UnitDisplay extends LitElement implements Controller {
   private _warships = 0;
   private _factories = 0;
   private _airports = 0;
+  private _fighters = 0;
   private _missileSilo = 0;
   private _port = 0;
   private _defensePost = 0;
@@ -108,6 +112,13 @@ export class UnitDisplay extends LitElement implements Controller {
           this.cost(item) <= (player?.gold() ?? 0n) &&
           (player?.units(UnitType.Port).length ?? 0) > 0
         );
+      case UnitType.Bomber:
+      case UnitType.Fighter:
+      case UnitType.AirTransport:
+        return (
+          this.cost(item) <= (player?.gold() ?? 0n) &&
+          (player?.units(UnitType.Airport).length ?? 0) > 0
+        );
       default:
         return this.cost(item) <= (player?.gold() ?? 0n);
     }
@@ -126,6 +137,7 @@ export class UnitDisplay extends LitElement implements Controller {
     this._samLauncher = player.totalUnitLevels(UnitType.SAMLauncher);
     this._factories = player.totalUnitLevels(UnitType.Factory);
     this._airports = player.totalUnitLevels(UnitType.Airport);
+    this._fighters = player.totalUnitLevels(UnitType.Fighter);
     this._warships = player.totalUnitLevels(UnitType.Warship);
     this.requestUpdate();
   }
@@ -174,6 +186,27 @@ export class UnitDisplay extends LitElement implements Controller {
             UnitType.Airport,
             "airport",
             this.keybinds["buildAirport"]?.key ?? "H",
+          )}
+          ${this.renderUnitItem(
+            fighterIcon,
+            this._fighters,
+            UnitType.Fighter,
+            "fighter",
+            this.keybinds["buildFighter"]?.key ?? "I",
+          )}
+          ${this.renderUnitItem(
+            bomberIcon,
+            null,
+            UnitType.Bomber,
+            "bomber",
+            this.keybinds["buildBomber"]?.key ?? "J",
+          )}
+          ${this.renderUnitItem(
+            airTransportIcon,
+            null,
+            UnitType.AirTransport,
+            "air_transport",
+            this.keybinds["buildAirTransport"]?.key ?? "O",
           )}
           ${this.renderUnitItem(
             defensePostIcon,
