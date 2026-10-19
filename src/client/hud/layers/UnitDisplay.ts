@@ -19,6 +19,7 @@ import {
   atomBombIcon,
   cityIcon,
   defensePostIcon,
+  airportIcon,
   factoryIcon,
   goldCoinIcon,
   hydrogenBombIcon,
@@ -40,6 +41,7 @@ export class UnitDisplay extends LitElement implements Controller {
   private _cities = 0;
   private _warships = 0;
   private _factories = 0;
+  private _airports = 0;
   private _missileSilo = 0;
   private _port = 0;
   private _defensePost = 0;
@@ -123,6 +125,7 @@ export class UnitDisplay extends LitElement implements Controller {
     this._defensePost = player.totalUnitLevels(UnitType.DefensePost);
     this._samLauncher = player.totalUnitLevels(UnitType.SAMLauncher);
     this._factories = player.totalUnitLevels(UnitType.Factory);
+    this._airports = player.totalUnitLevels(UnitType.Airport);
     this._warships = player.totalUnitLevels(UnitType.Warship);
     this.requestUpdate();
   }
@@ -164,6 +167,13 @@ export class UnitDisplay extends LitElement implements Controller {
             UnitType.Port,
             "port",
             this.keybinds["buildPort"]?.key ?? "3",
+          )}
+          ${this.renderUnitItem(
+            airportIcon,
+            this._airports,
+            UnitType.Airport,
+            "airport",
+            this.keybinds["buildAirport"]?.key ?? "H",
           )}
           ${this.renderUnitItem(
             defensePostIcon,
