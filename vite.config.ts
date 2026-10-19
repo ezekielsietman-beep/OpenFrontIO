@@ -461,6 +461,9 @@ export default defineConfig(({ mode }) => {
     server: {
       port: 9000,
       host: process.env.VITE_HOST === "lan",
+      // GitHub Codespaces serves the forwarded port from *.app.github.dev,
+      // which vite would otherwise reject as an unknown host.
+      allowedHosts: process.env.CODESPACES === "true" ? true : undefined,
       // Automatically open the browser when the server starts
       open: process.env.SKIP_BROWSER_OPEN !== "true",
       proxy: {
