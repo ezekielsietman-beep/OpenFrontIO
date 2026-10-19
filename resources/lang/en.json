@@ -189,7 +189,7 @@
   "build_menu": {
     "desc": {
       "airport": "Launches passenger flights to other players' airports for gold",
-      "bomber": "Click an enemy tile to send a squadron of up to 4 bombers (300K each). Each enemy structure near the target is destroyed with a chance that rises with the number of bombers that arrive. SAM launchers shoot bombers down",
+      "bomber": "Click an enemy tile to send a squadron of up to 4 bombers (150K each). Each enemy structure near the target is destroyed with a chance that rises with the number of bombers that arrive. SAM launchers shoot bombers down",
       "atom_bomb": "Small explosion",
       "city": "Increases max population",
       "defense_post": "Increases defenses of nearby borders",

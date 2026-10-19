@@ -40,9 +40,10 @@ describe("raidKillChance", () => {
     expect(odds[4]).toBeLessThan(1);
   });
 
-  test("a default squadron is about a 70% chance", () => {
-    expect(raidKillChance(0.3, 4)).toBeGreaterThan(0.7);
-    expect(raidKillChance(0.3, 3)).toBeLessThan(0.7);
+  test("the default odds make a squadron very likely to hit", () => {
+    const perBomber = 0.4;
+    expect(raidKillChance(perBomber, 1)).toBeCloseTo(0.4);
+    expect(raidKillChance(perBomber, 4)).toBeGreaterThan(0.85);
   });
 });
 
@@ -81,6 +82,11 @@ describe("Bombers", () => {
     game.executeNextTick();
     game.executeNextTick();
     const size = game.config().bomberSquadronSize();
+    // The shipped balance: a squadron costs less than an atom bomb.
+    expect(cost * BigInt(size)).toBeLessThan(
+      game.unitInfo(UnitType.AtomBomb).cost(game, player),
+    );
+    expect(game.config().bomberKillChancePerBomber()).toBe(0.4);
     expect(game.unitCount(UnitType.Bomber)).toBe(size);
     expect(before - player.gold()).toBe(cost * BigInt(size));
   });

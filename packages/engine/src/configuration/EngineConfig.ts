@@ -348,7 +348,7 @@ export class EngineConfig extends Config {
 
   /** Chance one bomber, alone, destroys a structure in range; a squadron's odds compound. */
   bomberKillChancePerBomber(): number {
-    return 0.3;
+    return 0.4;
   }
 
   /** Fraction of an affected player's troops killed per bomber that reaches the target. */
@@ -401,7 +401,7 @@ export class EngineConfig extends Config {
           UnitType.Factory,
         );
       case UnitType.Bomber:
-        return this.costWrapper(() => 300_000, UnitType.Bomber);
+        return this.costWrapper(() => 150_000, UnitType.Bomber);
       case UnitType.Airport:
         return this.costWrapper(
           (numUnits: number) => Math.min(2_000_000, pow2(numUnits) * 250_000),
