@@ -258,9 +258,23 @@ export function backendReachable(): boolean | null {
  * bug, and the reason getDesktopUpdateState() exists in the same shape.
  */
 export function backendUnreachableConfirmed(): boolean {
+  if (isPrivateServer()) return false;
   return (
     reachable === false && consecutiveFailures >= CONFIRM_OUTAGE_AFTER_FAILURES
   );
+}
+
+/**
+ * True on a private, self-hosted server (DISABLE_PUBLIC_LOBBIES=true, see
+ * ServerEnv.publicLobbiesDisabled). There is no hosted OpenFront API behind
+ * such a server, so the API being unreachable is the normal state, not an
+ * outage, and must not lock players out of private multiplayer lobbies.
+ * The flag is a build-time define (vite.config.ts), like API_DOMAIN.
+ */
+export function isPrivateServer(
+  flag: string | undefined = process.env.DISABLE_PUBLIC_LOBBIES,
+): boolean {
+  return flag === "true";
 }
 
 /**

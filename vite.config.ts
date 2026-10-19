@@ -428,6 +428,11 @@ export default defineConfig(({ mode }) => {
       "process.env.API_DOMAIN": JSON.stringify(
         mode === "test" ? "" : (env.API_DOMAIN ?? ""),
       ),
+      // "true" on a private self-hosted server: the hosted API is not there,
+      // so its absence must not gate multiplayer (ServerList.isPrivateServer).
+      "process.env.DISABLE_PUBLIC_LOBBIES": JSON.stringify(
+        mode === "test" ? "" : (env.DISABLE_PUBLIC_LOBBIES ?? ""),
+      ),
       // Add other process.env variables if needed, OR migrate code to import.meta.env
     },
 

@@ -6,6 +6,7 @@ import {
   backendReachable,
   backendUnreachableConfirmed,
   ensureServerList,
+  isPrivateServer,
   MANUAL_RETRY_COOLDOWN_MS,
   manualRetryAvailable,
   redirectToGameVersion,
@@ -2010,5 +2011,21 @@ describe("versionedPathForMismatchedGame", () => {
     await withList();
     (window as any).openfrontDesktop = {};
     expect(versionedPathForMismatchedGame("cAbCd12345", OLD)).toBeNull();
+  });
+});
+
+// A private self-hosted server (DISABLE_PUBLIC_LOBBIES=true) has no hosted API
+// behind it, so the API being unreachable must never lock players out of
+// private multiplayer lobbies.
+describe("isPrivateServer", () => {
+  it("is true only for the exact flag value", () => {
+    expect(isPrivateServer("true")).toBe(true);
+    expect(isPrivateServer("")).toBe(false);
+    expect(isPrivateServer("false")).toBe(false);
+    expect(isPrivateServer(undefined)).toBe(false);
+  });
+
+  it("is off by default under test, so outage gating is unchanged", () => {
+    expect(isPrivateServer()).toBe(false);
   });
 });
