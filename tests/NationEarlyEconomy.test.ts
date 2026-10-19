@@ -293,7 +293,12 @@ describe("Nation structure upgrades", () => {
       {
         difficulty,
         gameMode: ffa,
-        disabledUnits: [UnitType.City, UnitType.Factory, UnitType.MissileSilo],
+        disabledUnits: [
+          UnitType.City,
+          UnitType.Factory,
+          UnitType.MissileSilo,
+          UnitType.Airport,
+        ],
       },
       { size: 200 },
     );

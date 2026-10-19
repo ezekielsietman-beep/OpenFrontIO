@@ -83,6 +83,11 @@ function getStructureRatios(
       ratioPerCity: 0.2,
       perceivedCostIncreasePerOwned: 1,
     },
+    // Flights only pay when another player has an airport too, so keep it lean.
+    [UnitType.Airport]: {
+      ratioPerCity: 0.25,
+      perceivedCostIncreasePerOwned: 1,
+    },
   };
 }
 
@@ -673,6 +678,7 @@ export class NationStructureBehavior {
       UnitType.Factory,
       UnitType.SAMLauncher,
       UnitType.MissileSilo,
+      UnitType.Airport,
     ];
 
     const nukesEnabled =
@@ -1218,6 +1224,8 @@ export class NationStructureBehavior {
         return this.portValue();
       case UnitType.SAMLauncher:
         return this.samLauncherValue();
+      case UnitType.Airport:
+        return this.airportValue();
       default:
         throw new Error(`Value function not implemented for ${type}`);
     }
@@ -1348,6 +1356,30 @@ export class NationStructureBehavior {
           stationRangeSquared,
         ) * structureSpacing;
 
+      return w;
+    };
+  }
+
+  /**
+   * Value function for Airport.
+   * Prefers the interior, away from the border and from other airports.
+   */
+  private airportValue(): (tile: TileRef) => number {
+    const game = this.game;
+    const borderTiles = this.player.borderTiles();
+    const otherTiles: Set<TileRef> = new Set(
+      this.player.units(UnitType.Airport).map((u) => u.tile()),
+    );
+    const { borderSpacing, structureSpacing } = this.spacingConstants();
+
+    return (tile) => {
+      let w = 0;
+      w += Math.min(
+        nearestTileDistCapped(game, borderTiles, tile, borderSpacing),
+        borderSpacing,
+      );
+      const d = nearestTileDist(game, otherTiles, tile);
+      if (d !== Infinity) w += Math.min(d, structureSpacing);
       return w;
     };
   }
