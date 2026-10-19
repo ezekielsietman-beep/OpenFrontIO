@@ -1609,6 +1609,8 @@ export class PlayerImpl implements Player {
         return this.portSpawn(targetTile, validTiles);
       case UnitType.Warship:
         return this.warshipSpawn(targetTile);
+      case UnitType.Bomber:
+        return this.bomberSpawn(targetTile);
       case UnitType.Shell:
       case UnitType.SAMMissile:
         return targetTile;
@@ -1704,6 +1706,24 @@ export class PlayerImpl implements Player {
       }
     }
     return false;
+  }
+
+  /** A bomber launches from the nearest finished airport at an enemy-owned tile. */
+  bomberSpawn(target: TileRef): TileRef | false {
+    const mg = this.mg;
+    if (mg.isSpawnImmunityActive() || !mg.isValidRef(target)) {
+      return false;
+    }
+    const owner = mg.owner(target);
+    if (!owner.isPlayer() || owner === this || this.isFriendly(owner)) {
+      return false;
+    }
+    const airport = findClosestBy(
+      this.units(UnitType.Airport),
+      (a) => mg.manhattanDist(a.tile(), target),
+      (a) => a.isActive() && !a.isUnderConstruction(),
+    );
+    return airport === null ? false : airport.tile();
   }
 
   warshipSpawn(tile: TileRef): TileRef | false {

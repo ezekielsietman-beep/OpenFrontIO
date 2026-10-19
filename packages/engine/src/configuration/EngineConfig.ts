@@ -331,6 +331,26 @@ export class EngineConfig extends Config {
     return 2;
   }
 
+  /** Tiles a bomber covers per tick. */
+  bomberSpeed(): number {
+    return 3;
+  }
+
+  /** Radius (tiles) within which a bomb damages structures. */
+  bomberBlastRadius(): number {
+    return 6;
+  }
+
+  /** Fraction of an affected player's troops killed by one bombing run. */
+  bomberTroopKillFraction(): number {
+    return 0.04;
+  }
+
+  /** Each SAM launcher level has a 1-in-this chance per tick of downing a bomber in range. */
+  bomberSamKillOdds(): number {
+    return 100;
+  }
+
   /** Passenger flights in the air at once, per airport level. */
   maxPlanesPerAirportLevel(): number {
     return 2;
@@ -370,6 +390,8 @@ export class EngineConfig extends Config {
           UnitType.Port,
           UnitType.Factory,
         );
+      case UnitType.Bomber:
+        return this.costWrapper(() => 200_000, UnitType.Bomber);
       case UnitType.Airport:
         return this.costWrapper(
           (numUnits: number) => Math.min(2_000_000, pow2(numUnits) * 250_000),

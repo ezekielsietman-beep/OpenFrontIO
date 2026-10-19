@@ -144,7 +144,7 @@ export class PlaneExecution implements Execution {
 }
 
 /** Every `step`th tile of `path`, always keeping the final tile. */
-function sampleEvery(path: TileRef[], step: number): TileRef[] {
+export function sampleEvery(path: TileRef[], step: number): TileRef[] {
   const out: TileRef[] = [];
   for (let i = 0; i < path.length; i += step) out.push(path[i]);
   const last = path[path.length - 1];

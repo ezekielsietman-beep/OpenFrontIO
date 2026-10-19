@@ -189,6 +189,7 @@
   "build_menu": {
     "desc": {
       "airport": "Launches passenger flights to other players' airports for gold",
+      "bomber": "Click an enemy tile: a bomber flies from your nearest airport, damages structures and troops there, then returns. SAM launchers can shoot it down",
       "atom_bomb": "Small explosion",
       "city": "Increases max population",
       "defense_post": "Increases defenses of nearby borders",
@@ -871,6 +872,8 @@
     "alliance_request_sent": "Alliance request sent to {name}.",
     "alliance_request_status": "{name} {status} your alliance request",
     "atom_bomb_detonated": "{name} - atom bomb detonated",
+    "bomber_bombed": "{name}'s bomber bombed your territory",
+    "bomber_shot_down": "Your SAM shot down {name}'s bomber",
     "atom_bomb_inbound": "{name} - atom bomb inbound",
     "attack_cancelled_retreat": "Attack cancelled, {troops} soldiers killed during retreat",
     "attack_request": "{name} requests you attack {target}",
@@ -2499,6 +2502,7 @@
   "unit_type": {
     "airport": "Airport",
     "atom_bomb": "Atom Bomb",
+    "bomber": "Bomber",
     "boat": "Boat",
     "city": "City",
     "defense_post": "Defense Post",

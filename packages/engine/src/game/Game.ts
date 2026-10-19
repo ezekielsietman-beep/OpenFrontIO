@@ -77,6 +77,10 @@ export interface UnitParamsMap {
     targetUnit: Unit;
   };
 
+  [UnitType.Bomber]: {
+    targetTile: TileRef;
+  };
+
   [UnitType.AtomBomb]: {
     targetTile?: number;
     trajectory: TrajectoryTile[];

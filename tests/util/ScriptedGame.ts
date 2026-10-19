@@ -341,6 +341,17 @@ function playIntent(game: Game, p: Player, rand: PseudoRandom): Intent | null {
       return { type: "build_unit", unit: UnitType.Warship, tile: water };
     }
     case 8: {
+      // Players with an airport send bombers half the time.
+      if (
+        other !== null &&
+        own([UnitType.Airport]).length > 0 &&
+        rand.chance(2)
+      ) {
+        const target = randomOwnedTile(rand, other);
+        if (target !== null && p.canBuild(UnitType.Bomber, target) !== false) {
+          return { type: "build_unit", unit: UnitType.Bomber, tile: target };
+        }
+      }
       if (own([UnitType.MissileSilo]).length === 0 || other === null) {
         return null;
       }

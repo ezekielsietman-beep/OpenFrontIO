@@ -22,6 +22,7 @@ export const UT_SHELL = "Shell" as const;
 export const UT_MIRV_WARHEAD = "MIRV Warhead" as const;
 export const UT_TRAIN = "Train" as const;
 export const UT_PLANE = "Plane" as const;
+export const UT_BOMBER = "Bomber" as const;
 
 // Structures
 export const UT_CITY = "City" as const;
@@ -103,5 +104,6 @@ export const ALL_UNIT_TYPES = [
   UT_MISSILE_SILO,
   UT_TRAIN,
   UT_PLANE,
+  UT_BOMBER,
   UT_AIRPORT,
 ] as const;
