@@ -1611,6 +1611,8 @@ export class PlayerImpl implements Player {
         return this.warshipSpawn(targetTile);
       case UnitType.Bomber:
         return this.bomberSpawn(targetTile);
+      case UnitType.Fighter:
+        return this.fighterSpawn(targetTile);
       case UnitType.Shell:
       case UnitType.SAMMissile:
         return targetTile;
@@ -1722,6 +1724,22 @@ export class PlayerImpl implements Player {
       this.units(UnitType.Airport),
       (a) => mg.manhattanDist(a.tile(), target),
       (a) => a.isActive() && !a.isUnderConstruction(),
+    );
+    return airport === null ? false : airport.tile();
+  }
+
+  /** A fighter is based at the finished airport nearest the clicked tile. */
+  fighterSpawn(tile: TileRef): TileRef | false {
+    const mg = this.mg;
+    if (!mg.isValidRef(tile)) return false;
+    const airports = this.units(UnitType.Airport).filter(
+      (a) => a.isActive() && !a.isUnderConstruction(),
+    );
+    const levels = airports.reduce((sum, a) => sum + a.level(), 0);
+    const cap = mg.config().maxFightersPerAirportLevel() * levels;
+    if (this.units(UnitType.Fighter).length >= cap) return false;
+    const airport = findClosestBy(airports, (a) =>
+      mg.manhattanDist(a.tile(), tile),
     );
     return airport === null ? false : airport.tile();
   }

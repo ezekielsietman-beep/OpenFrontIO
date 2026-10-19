@@ -356,9 +356,29 @@ export class EngineConfig extends Config {
     return 0.015;
   }
 
-  /** Each SAM launcher level has a 1-in-this chance per tick of downing a bomber in range. */
-  bomberSamKillOdds(): number {
+  /** Tiles a fighter covers per tick (faster than a bomber). */
+  fighterSpeed(): number {
+    return 4;
+  }
+
+  /** A fighter scrambles at enemy bombers within this many tiles of its airport. */
+  fighterScrambleRange(): number {
     return 100;
+  }
+
+  /** Distance (tiles) within which a fighter can shoot a bomber down. */
+  fighterKillRange(): number {
+    return 5;
+  }
+
+  /** Each tick in range, a fighter downs its target with a 1-in-this chance. */
+  fighterKillOdds(): number {
+    return 3;
+  }
+
+  /** Fighters a player may keep, per airport level. */
+  maxFightersPerAirportLevel(): number {
+    return 3;
   }
 
   /** Passenger flights in the air at once, per airport level. */
@@ -402,6 +422,8 @@ export class EngineConfig extends Config {
         );
       case UnitType.Bomber:
         return this.costWrapper(() => 150_000, UnitType.Bomber);
+      case UnitType.Fighter:
+        return this.costWrapper(() => 400_000, UnitType.Fighter);
       case UnitType.Airport:
         return this.costWrapper(
           (numUnits: number) => Math.min(2_000_000, pow2(numUnits) * 250_000),

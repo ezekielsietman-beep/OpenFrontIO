@@ -262,6 +262,7 @@ export class Config {
       case UnitType.TradeShip:
       case UnitType.Plane:
       case UnitType.Bomber:
+      case UnitType.Fighter:
       case UnitType.Train:
         info = {};
         break;

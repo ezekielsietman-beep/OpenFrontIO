@@ -150,46 +150,15 @@ describe("Bombers", () => {
     expect(city.isActive()).toBe(false);
   });
 
-  test("enemy SAMs shoot the squadron down before it bombs", () => {
+  test("SAM launchers cannot shoot bombers down", () => {
     build(player, UnitType.Airport, 7, 10);
     const city = build(enemy, UnitType.City, 1, 1);
     build(enemy, UnitType.SAMLauncher, 3, 3);
-    game.config().bomberSamKillOdds = () => 1;
     game.config().bomberKillChancePerBomber = () => 1;
 
     game.addExecution(new BomberExecution(player, city.tile()));
     runUntilGone();
     expect(game.unitCount(UnitType.Bomber)).toBe(0);
-    expect(city.isActive()).toBe(true);
-  });
-
-  test("SAMs thin the squadron, so the survivors' odds drop", () => {
-    // Only the very first SAM roll hits: one bomber of four is downed.
-    build(player, UnitType.Airport, 7, 10);
-    const city = build(enemy, UnitType.City, 1, 1);
-    build(enemy, UnitType.SAMLauncher, 3, 3);
-    let rolls = 0;
-    game.config().bomberSamKillOdds = () => (rolls++ === 0 ? 1 : 1e9);
-    const resolvedWith: number[] = [];
-    const real = game.config().bomberTroopKillFraction.bind(game.config());
-    game.config().bomberTroopKillFraction = () => {
-      resolvedWith.push(game.unitCount(UnitType.Bomber));
-      return real();
-    };
-    game.addExecution(new BomberExecution(player, city.tile()));
-    runUntilGone();
-    expect(resolvedWith.length).toBeGreaterThan(0);
-    expect(resolvedWith[0]).toBe(3);
-  });
-
-  test("an own SAM never stops its owner's bombers", () => {
-    build(player, UnitType.Airport, 7, 10);
-    build(player, UnitType.SAMLauncher, 7, 14);
-    const city = build(enemy, UnitType.City, 1, 1);
-    game.config().bomberSamKillOdds = () => 1;
-    game.config().bomberKillChancePerBomber = () => 1;
-    game.addExecution(new BomberExecution(player, city.tile()));
-    runUntilGone();
     expect(city.isActive()).toBe(false);
   });
 });

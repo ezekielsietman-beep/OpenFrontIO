@@ -81,6 +81,8 @@ export interface UnitParamsMap {
     targetTile: TileRef;
   };
 
+  [UnitType.Fighter]: Record<string, never>;
+
   [UnitType.AtomBomb]: {
     targetTile?: number;
     trajectory: TrajectoryTile[];

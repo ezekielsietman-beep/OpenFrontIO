@@ -23,6 +23,7 @@ const DISABLED_UNIT_KEYS: Record<string, string> = {
   Factory: "unit_type.factory",
   Airport: "unit_type.airport",
   Bomber: "unit_type.bomber",
+  Fighter: "unit_type.fighter",
   "Atom Bomb": "unit_type.atom_bomb",
   "Hydrogen Bomb": "unit_type.hydrogen_bomb",
   MIRV: "unit_type.mirv",

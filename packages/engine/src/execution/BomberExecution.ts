@@ -47,9 +47,9 @@ export function raidKillChance(perBomber: number, bombers: number): number {
 
 /**
  * One bombing raid: a squadron launches from the nearest airport, flies the
- * straight line to the target, bombs it, then flies home. Enemy SAM launchers
- * can shoot individual bombers down on either leg, which thins the squadron
- * and lowers the raid's odds.
+ * straight line to the target, bombs it, then flies home. Enemy fighters can
+ * shoot individual bombers down on either leg, which thins the squadron and
+ * lowers the raid's odds. SAM launchers cannot touch them.
  */
 export class BomberExecution implements Execution {
   private active = true;
@@ -79,9 +79,8 @@ export class BomberExecution implements Execution {
       if (!this.active) return;
     }
 
-    for (const flight of this.flights) {
-      if (flight.unit.isActive()) this.checkSams(flight);
-    }
+    // Only fighters can bring a bomber down (see FighterExecution), which
+    // deletes the unit, so just see who is still flying.
     const alive = this.flights.filter((f) => f.unit.isActive());
     if (alive.length === 0) {
       this.active = false;
@@ -212,32 +211,6 @@ export class BomberExecution implements Execution {
       (a) => this.mg.manhattanDist(a.tile(), here),
       usable,
     );
-  }
-
-  private checkSams(f: Flight) {
-    const mg = this.mg;
-    const config = mg.config();
-    const here = f.unit.tile();
-    for (const sam of mg.units(UnitType.SAMLauncher)) {
-      if (!sam.isActive() || sam.isUnderConstruction()) continue;
-      const samOwner = sam.owner();
-      if (samOwner === this.owner || this.owner.isFriendly(samOwner)) continue;
-      const range = config.samRange(sam.level());
-      if (mg.euclideanDistSquared(sam.tile(), here) > range * range) continue;
-      for (let i = 0; i < sam.level(); i++) {
-        if (this.random.chance(config.bomberSamKillOdds())) {
-          mg.displayMessage(
-            "events_display.bomber_shot_down",
-            MessageType.SAM_HIT,
-            samOwner.id(),
-            undefined,
-            { name: this.owner.displayName() },
-          );
-          f.unit.delete(true, samOwner);
-          return;
-        }
-      }
-    }
   }
 
   private bombTarget(bombers: number) {
