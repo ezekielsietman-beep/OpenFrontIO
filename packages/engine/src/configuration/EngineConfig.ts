@@ -341,9 +341,19 @@ export class EngineConfig extends Config {
     return 6;
   }
 
-  /** Fraction of an affected player's troops killed by one bombing run. */
+  /** Bombers sent by one order when the player doesn't pick a number. */
+  bomberSquadronSize(): number {
+    return 4;
+  }
+
+  /** Chance one bomber, alone, destroys a structure in range; a squadron's odds compound. */
+  bomberKillChancePerBomber(): number {
+    return 0.3;
+  }
+
+  /** Fraction of an affected player's troops killed per bomber that reaches the target. */
   bomberTroopKillFraction(): number {
-    return 0.04;
+    return 0.015;
   }
 
   /** Each SAM launcher level has a 1-in-this chance per tick of downing a bomber in range. */
@@ -391,7 +401,7 @@ export class EngineConfig extends Config {
           UnitType.Factory,
         );
       case UnitType.Bomber:
-        return this.costWrapper(() => 200_000, UnitType.Bomber);
+        return this.costWrapper(() => 300_000, UnitType.Bomber);
       case UnitType.Airport:
         return this.costWrapper(
           (numUnits: number) => Math.min(2_000_000, pow2(numUnits) * 250_000),

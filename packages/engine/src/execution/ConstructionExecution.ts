@@ -142,7 +142,9 @@ export class ConstructionExecution implements Execution {
         this.mg.addExecution(new MirvExecution(player, this.tile));
         break;
       case UnitType.Bomber:
-        this.mg.addExecution(new BomberExecution(player, this.tile));
+        this.mg.addExecution(
+          new BomberExecution(player, this.tile, this.amount ?? 0),
+        );
         break;
       case UnitType.Warship:
         this.mg.addExecution(
