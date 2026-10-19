@@ -96,6 +96,7 @@ export async function startWorker() {
 
   setTimeout(
     () => {
+      if (ServerEnv.publicLobbiesDisabled()) return;
       // The ranked loop follows the deployment-active flag the master pushes
       // to this worker (OPE-469): a draining, standby or fenced server keeps
       // the games it has but stops offering new matches.

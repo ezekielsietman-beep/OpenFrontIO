@@ -433,6 +433,7 @@ export class MasterLobbyService {
     // Coordinated: the site's queue depth and countdowns are the
     // coordinator's; adding our own here would double-schedule.
     if (this.isCoordinated()) return;
+    if (ServerEnv.publicLobbiesDisabled()) return;
 
     const lobbiesByType = this.getAllLobbies().games;
 

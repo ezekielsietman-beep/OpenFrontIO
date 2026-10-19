@@ -92,6 +92,13 @@ export class ServerEnv {
     }
     return v;
   }
+  /**
+   * Turns off the scheduled public lobbies and the ranked matchmaking poller.
+   * For private dev/test servers (e.g. a Codespace) where nobody joins them.
+   */
+  static publicLobbiesDisabled(): boolean {
+    return process.env.DISABLE_PUBLIC_LOBBIES === "true";
+  }
   static instanceId(): string {
     return process.env.INSTANCE_ID ?? "";
   }

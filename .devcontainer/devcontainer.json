@@ -6,6 +6,7 @@
   },
   "containerEnv": {
     "SKIP_BROWSER_OPEN": "true",
+    "DISABLE_PUBLIC_LOBBIES": "true",
     "npm_config_engine_strict": "false"
   },
   "postCreateCommand": "npm run inst",
