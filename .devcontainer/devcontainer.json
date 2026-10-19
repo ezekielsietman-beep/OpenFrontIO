@@ -2,7 +2,9 @@
   "name": "OpenFront",
   "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
   "features": {
-    "ghcr.io/devcontainers/features/node:1": { "version": "24" }
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "24"
+    }
   },
   "containerEnv": {
     "SKIP_BROWSER_OPEN": "true",
@@ -10,9 +12,12 @@
     "npm_config_engine_strict": "false"
   },
   "postCreateCommand": "npm run inst",
-  "postStartCommand": "nohup npm run dev > /tmp/openfront-dev.log 2>&1 &",
   "forwardPorts": [9000],
   "portsAttributes": {
-    "9000": { "label": "OpenFront", "onAutoForward": "openBrowser" }
-  }
+    "9000": {
+      "label": "OpenFront",
+      "onAutoForward": "openBrowser"
+    }
+  },
+  "postAttachCommand": "bash -lc 'bash .devcontainer/start-game.sh'"
 }
